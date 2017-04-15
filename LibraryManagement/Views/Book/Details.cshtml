@@ -1,0 +1,98 @@
+﻿@model LibraryManagement.Models.Book
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-4">
+        <h2>Details</h2>
+        <ol class="breadcrumb">
+            <li>
+                @Html.ActionLink("List", "Index")
+            </li>
+            <li class="active">
+                <strong>Details</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+
+
+
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Details Book</h5>
+                </div>
+                <div class="ibox-content">
+
+
+				    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Publisher.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Publisher.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.published_date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.published_date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.standard_charge)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.standard_charge)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.penalty_charge)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.penalty_charge)
+        </dd>
+
+    </dl>
+
+
+	    @Html.ActionLink("Edit", "Edit", new { id = Model.bookID }, new { @class = "btn btn-primary"})
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-white"})
+
+                </div>
+            </div>
+        </div>
+    </div>
+ </div>
+
+
+
+
+
+
+
+
+
+
+
+
+

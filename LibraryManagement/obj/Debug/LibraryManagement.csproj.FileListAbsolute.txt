@@ -106,4 +106,3 @@ C:\Users\dilipraya\Desktop\LibraryManagement\LibraryManagement\bin\Microsoft.Owi
 C:\Users\dilipraya\Desktop\LibraryManagement\LibraryManagement\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\dilipraya\Desktop\LibraryManagement\LibraryManagement\obj\Debug\LibraryManagement.dll
 C:\Users\dilipraya\Desktop\LibraryManagement\LibraryManagement\obj\Debug\LibraryManagement.pdb
-C:\Users\dilipraya\Desktop\LibraryManagement\LibraryManagement\obj\Debug\LibraryManagement.csprojResolveAssemblyReference.cache

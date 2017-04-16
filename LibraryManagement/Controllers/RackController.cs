@@ -55,6 +55,7 @@ namespace LibraryManagement.Controllers
             {
                 db.Racks.Add(rack);
                 db.SaveChanges();
+                ViewBag.ResultMessage = "Rack added successfully !";
                 return RedirectToAction("Index");
             }
 

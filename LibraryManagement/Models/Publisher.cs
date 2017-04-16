@@ -17,7 +17,7 @@ namespace LibraryManagement.Models
         [Key, DisplayName("Publisher ID")]
         public int publisherID { get; set; }
 
-        [DisplayName("Publisher Name"), Required]
+        [DisplayName("Name"), Required]
         [StringLength(50, MinimumLength = 5, ErrorMessage = "Please enter publisher name using 5-50 characters.")]
         public string name { get; set; }
 

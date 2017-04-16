@@ -31,13 +31,13 @@
 <table class="table table-striped">
     <tr>
         <th>
+            S.N.
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Publisher.name)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.published_date)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.standard_charge)
@@ -45,20 +45,27 @@
         <th>
             @Html.DisplayNameFor(model => model.penalty_charge)
         </th>
-        <th></th>
+        <th>
+            Authors
+        </th>
+        <th>Actions</th>
     </tr>
-
-@foreach (var item in Model) {
+@{
+    int counter = 1;
+}
+@foreach (var item in Model)
+{
     <tr>
+        <td>
+            @(counter++)
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.Publisher.name)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.title)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.published_date)
-        </td>
+       
         <td>
             @Html.DisplayFor(modelItem => item.standard_charge)
         </td>
@@ -66,9 +73,19 @@
             @Html.DisplayFor(modelItem => item.penalty_charge)
         </td>
         <td>
-			@Html.ActionLink("Details", "Details", new { id=item.bookID }, new { @class = "btn btn-primary btn-sm"})
-            @Html.ActionLink("Edit", "Edit", new { id=item.bookID }, new { @class = "btn btn-white btn-sm"})
-            @Html.ActionLink("Delete", "Delete", new { id=item.bookID }, new { @class = "btn btn-white btn-sm"})
+            @if (item.Authors != null)
+            {
+                foreach (var author in item.Authors)
+                {
+                    @Html.ActionLink(author.first_name + " " + author.last_name, "Details", "Author", new { id = author.authorID }, new { @class = "btn btn-default active btn-block btn-xs" })
+
+                }
+            }
+        </td>
+        <td>
+            @Html.ActionLink("Details", "Details", new { id = item.bookID }, new { @class = "btn btn-primary btn-sm" })
+            @Html.ActionLink("Edit", "Edit", new { id = item.bookID }, new { @class = "btn btn-white btn-sm" })
+            @Html.ActionLink("Delete", "Delete", new { id = item.bookID }, new { @class = "btn btn-white btn-sm" })
         </td>
     </tr>
 }

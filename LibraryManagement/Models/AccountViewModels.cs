@@ -59,5 +59,17 @@ namespace LibraryManagement.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [StringLength(15, ErrorMessage = "The first name must be at least 3 characters long.", MinimumLength = 3)]
+        [Display(Name = "First name")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [StringLength(15, ErrorMessage = "The last name must be at least 3 characters long.", MinimumLength = 3)]
+        [Display(Name = "Last name")]
+        public string LastName { get; set; }
+
+
     }
 }

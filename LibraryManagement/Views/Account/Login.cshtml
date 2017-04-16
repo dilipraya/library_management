@@ -3,69 +3,96 @@
 @{
     Layout = null;
 }
-
 <!DOCTYPE html>
 <html>
+
 <head>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>INSPINIA | Login</title>
+    <title>Library Management | Login</title>
+
 
     <link href="~/Content/bootstrap.min.css" rel="stylesheet">
     <link href="~/Fonts/font-awesome/css/font-awesome.css" rel="stylesheet">
 
     <link href="~/Content/animate.css" rel="stylesheet">
     <link href="~/Content/style.css" rel="stylesheet">
-
 </head>
 
 <body class="gray-bg">
 
-    <div class="middle-box text-center loginscreen  animated fadeInDown">
-        <div>
-            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-            {
-                @Html.AntiForgeryToken()
-                <h4>Welcom in Inspinia App</h4>
-                <small>Use a local account to log in.</small>
-                <hr />
-                @Html.ValidationSummary(true)
-                <div class="form-group">
-                    @Html.LabelFor(m => m.UserName, new { @class = "col-md-3 control-label" })
-                    <div class="col-md-9">
-                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.UserName)
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Password, new { @class = "col-md-3 control-label" })
-                    <div class="col-md-9">
-                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Password)
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-8">
-                        <div class="checkbox">
-                            @Html.CheckBoxFor(m => m.RememberMe)
-                            @Html.LabelFor(m => m.RememberMe)
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-8">
-                        <input type="submit" value="Log in" class="btn btn-primary" />
-                    </div>
-                </div>
+    <div class="loginColumns animated fadeInDown">
+        <div class="row">
+
+            <div class="col-md-6">
+                <h2 class="font-bold">Welcome to Library Management</h2>
+
                 <p>
-                    @Html.ActionLink("Register", "Register") if you don't have a local account.
+                    Manage your library without any hassle.
                 </p>
-            }
+                <p>
+                    Keep your library records accessible and safe.
+                </p>
+
+            </div>
+            <div class="col-md-6">
+                <div class="ibox-content">
+                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "m-t", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+                    
+                        <div class="form-group">
+                            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @placeholder = "Username" })
+                            @Html.ValidationMessageFor(m => m.UserName)
+                        </div>
+                     
+                       
+
+                        <div class="form-group">
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Password" })
+                            @Html.ValidationMessageFor(m => m.UserName)
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-8">
+                                <div class="checkbox">
+                                    @Html.CheckBoxFor(m => m.RememberMe)
+                                    @Html.LabelFor(m => m.RememberMe)
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary block full-width m-b">Login</button>
+
+                        <a href="#">
+                            <small>Forgot password?</small>
+                        </a>
+
+                        <p class="text-muted text-center">
+                            <small>Do not have an account?</small>
+                        </p>
+                        @Html.ActionLink("Create an account", "Register", null, new {@class="btn btn-sm btn-white btn-block" })
+                }
+                    <p class="m-t">
+                        <small>Built using Inspinia and Bootstrap &copy; 2017</small>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-md-6">
+                Copyright Library Management App
+            </div>
+            <div class="col-md-6 text-right">
+                <small>© 2017</small>
+            </div>
         </div>
     </div>
+
 </body>
+
 </html>
 
 @section Scripts {

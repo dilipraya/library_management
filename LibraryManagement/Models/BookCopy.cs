@@ -17,10 +17,13 @@ namespace LibraryManagement.Models
         [Key, DisplayName("Book Copy ID")]
         public int bookCopyID { get; set; }
 
-        [DisplayName("Book ID"), Required]
+        [DisplayName("Copy Number")]
+        public int bookCopyNo { get; set; }
+
+        [DisplayName("Book"), Required]
         public int bookID { get; set; }
 
-        [DisplayName("Rack ID"), Required]
+        [DisplayName("Rack"), Required]
         public int rackID { get; set; }
         public virtual Book Book { get; set; }
         public virtual Rack Rack { get; set; }

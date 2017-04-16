@@ -20,7 +20,7 @@ namespace LibraryManagement.Models
         public int bookID { get; set; }
 
         [DisplayName("Book Title"), Required]
-        [StringLength(30, MinimumLength = 3, ErrorMessage = "Please enter the book title using 3-30 characters.")]
+        [StringLength(50, MinimumLength = 3, ErrorMessage = "Please enter the book title using 3-50 characters.")]
         public string title { get; set; }
 
         [DisplayName("Published Date"), Required, DataType(DataType.Date)]

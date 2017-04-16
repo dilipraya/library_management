@@ -20,9 +20,7 @@ namespace LibraryManagement.DAL
         public DbSet<Member> Members { get; set; }
         public DbSet<Publisher> Publishers { get; set; }
         public DbSet<Rack> Racks { get; set; }
-        public DbSet<Role> Roles { get; set; }
         public DbSet<Shelf> Shelves { get; set; }
-        public DbSet<User> Users { get; set; }
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

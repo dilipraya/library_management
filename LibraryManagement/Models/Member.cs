@@ -15,11 +15,6 @@ namespace LibraryManagement.Models
             this.Loans = new HashSet<Loan>();
         }
 
-        public enum MemberGender
-        {
-            male, female, other
-        }
-
         [Key, DisplayName("Member ID")]
         public int memberID { get; set; }
 
@@ -27,11 +22,12 @@ namespace LibraryManagement.Models
         [StringLength(15, MinimumLength = 3, ErrorMessage = "Please enter the first name using 3-15 characters.")]
         public string first_name { get; set; }
 
-        [DisplayName("First Name"), Required]
+        [DisplayName("Last Name"), Required]
         [StringLength(15, MinimumLength = 3, ErrorMessage = "Please enter the last name using 3-15 characters.")]
         public string last_name { get; set; }
 
-        public MemberGender? gender { get; set; }
+        [DisplayName("Gender"), Required]
+        public string gender { get; set; }
 
         [DisplayName("Date of Birth"), DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]

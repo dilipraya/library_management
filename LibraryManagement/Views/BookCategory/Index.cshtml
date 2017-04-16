@@ -31,16 +31,25 @@
 <table class="table table-striped">
     <tr>
         <th>
+            S.N.
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.category_name)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.age_restriction)
         </th>
-        <th></th>
+        <th>Actions</th>
     </tr>
-
-@foreach (var item in Model) {
+@{
+    int counter = 1;
+}
+@foreach (var item in Model)
+{
     <tr>
+        <td>
+            @(counter++)
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.category_name)
         </td>
@@ -48,9 +57,9 @@
             @Html.DisplayFor(modelItem => item.age_restriction)
         </td>
         <td>
-			@Html.ActionLink("Details", "Details", new { id=item.bookCategoryID }, new { @class = "btn btn-primary btn-sm"})
-            @Html.ActionLink("Edit", "Edit", new { id=item.bookCategoryID }, new { @class = "btn btn-white btn-sm"})
-            @Html.ActionLink("Delete", "Delete", new { id=item.bookCategoryID }, new { @class = "btn btn-white btn-sm"})
+            @Html.ActionLink("Details", "Details", new { id = item.bookCategoryID }, new { @class = "btn btn-primary btn-sm" })
+            @Html.ActionLink("Edit", "Edit", new { id = item.bookCategoryID }, new { @class = "btn btn-white btn-sm" })
+            @Html.ActionLink("Delete", "Delete", new { id = item.bookCategoryID }, new { @class = "btn btn-white btn-sm" })
         </td>
     </tr>
 }

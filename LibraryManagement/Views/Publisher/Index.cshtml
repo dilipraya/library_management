@@ -31,6 +31,9 @@
 <table class="table table-striped">
     <tr>
         <th>
+            S.N.
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.name)
         </th>
         <th>
@@ -48,11 +51,17 @@
         <th>
             @Html.DisplayNameFor(model => model.press)
         </th>
-        <th></th>
+        <th>Actions</th>
     </tr>
-
-@foreach (var item in Model) {
+@{
+    int counter = 1;
+}
+@foreach (var item in Model)
+{
     <tr>
+        <td>
+            @(counter++)
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.name)
         </td>
@@ -72,9 +81,9 @@
             @Html.DisplayFor(modelItem => item.press)
         </td>
         <td>
-			@Html.ActionLink("Details", "Details", new { id=item.publisherID }, new { @class = "btn btn-primary btn-sm"})
-            @Html.ActionLink("Edit", "Edit", new { id=item.publisherID }, new { @class = "btn btn-white btn-sm"})
-            @Html.ActionLink("Delete", "Delete", new { id=item.publisherID }, new { @class = "btn btn-white btn-sm"})
+            @Html.ActionLink("Details", "Details", new { id = item.publisherID }, new { @class = "btn btn-primary btn-sm" })
+            @Html.ActionLink("Edit", "Edit", new { id = item.publisherID }, new { @class = "btn btn-white btn-sm" })
+            @Html.ActionLink("Delete", "Delete", new { id = item.publisherID }, new { @class = "btn btn-white btn-sm" })
         </td>
     </tr>
 }

@@ -73,7 +73,56 @@
         </dd>
 
     </dl>
-
+                    @if (Model.Authors != null)
+                    {
+                        <hr />
+                        <h4>Authors</h4>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Author ID</th>
+                                    <th>Author Name</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var author in Model.Authors)
+                                {
+                                    <tr>
+                                        <td>@author.authorID</td>
+                                        <td>@author.first_name @author.last_name</td>
+                                        <td>@Html.ActionLink("View", "Details", "Author", new { id = author.authorID }, new { @class = "btn btn-primary active btn-xs" })
+</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    } @if (Model.BookCategories != null)
+                    {
+                        <hr />
+                        <h4>Book Categories</h4>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Book Category ID</th>
+                                    <th>Book Category Name</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var bookCategory in Model.BookCategories)
+                                {
+                                    <tr>
+                                        <td>@bookCategory.bookCategoryID</td>
+                                        <td>@bookCategory.category_name</td>
+                                        <td>
+                                            @Html.ActionLink("View", "Details", "BookCategory", new { id = bookCategory.bookCategoryID }, new { @class = "btn btn-primary active btn-xs" })
+                                    </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
 
 	    @Html.ActionLink("Edit", "Edit", new { id = Model.bookID }, new { @class = "btn btn-primary"})
     @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-white"})

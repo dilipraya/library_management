@@ -11,7 +11,7 @@ using LibraryManagement.Models;
 
 namespace LibraryManagement.Controllers
 {
-    public class AuthorController : Controller
+    public class AuthorController : ApplicationBaseController
     {
         private LibraryContext db = new LibraryContext();
 

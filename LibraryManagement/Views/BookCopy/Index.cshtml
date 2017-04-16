@@ -1,0 +1,81 @@
+﻿@model IEnumerable<LibraryManagement.Models.BookCopy>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-4">
+        <h2>Index</h2>
+        <ol class="breadcrumb">
+            <li class="active">
+                <strong>BookCopy</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>List of BookCopy</h5>
+					<div class="ibox-tools">
+						@Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary btn-xs"})
+					</div>
+                </div>
+                <div class="ibox-content">
+
+<table class="table table-striped">
+    <tr>
+        <th>
+            S.N.
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Book.title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Rack.rack_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.bookCopyNo)
+        </th>
+        <th>Actions</th>
+    </tr>
+    @{
+        int counter = 1;
+    }
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @(counter++)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Book.title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Rack.rack_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.bookCopyNo)
+        </td>
+        <td>
+			@Html.ActionLink("Details", "Details", new { id=item.bookCopyID }, new { @class = "btn btn-primary btn-sm"})
+            @Html.ActionLink("Edit", "Edit", new { id=item.bookCopyID }, new { @class = "btn btn-white btn-sm"})
+            @Html.ActionLink("Delete", "Delete", new { id=item.bookCopyID }, new { @class = "btn btn-white btn-sm"})
+        </td>
+    </tr>
+}
+
+</table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+ </div>
+
+
+

@@ -84,8 +84,8 @@
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.AllBookCategories, "BookCategories", new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <label class="control-label col-md-2">Book Categories</label> 
+           <div class="col-md-10">
                 @Html.ListBoxFor(m => m.SelectedBookCategories, Model.AllBookCategories, new { @class = "form-control" })
             </div>
         </div>

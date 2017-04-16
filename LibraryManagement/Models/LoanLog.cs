@@ -25,8 +25,6 @@ namespace LibraryManagement.Models
         [DisplayName("Loan Type"), Required]
         public Type loan_type { get; set; }
 
-
-        public User User { get; set; }
         public Loan Loan { get; set; }
     }
 }

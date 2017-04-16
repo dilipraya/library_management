@@ -12,7 +12,7 @@ using LibraryManagement.Models.ViewModels;
 
 namespace LibraryManagement.Controllers
 {
-    public class BookController : Controller
+    public class BookController : ApplicationBaseController
     {
         private LibraryContext db = new LibraryContext();
 
@@ -70,9 +70,9 @@ namespace LibraryManagement.Controllers
             if (ModelState.IsValid)
             {
                 var bookToAdd = db.Books
-                .Include(i => i.Authors)
-                .Include(i => i.BookCategories)
-                .First();
+                    .Include(i => i.Authors)
+                    .Include(i => i.BookCategories)
+                    .First();
 
                 if (TryUpdateModel(bookToAdd, "book", new string[] { "bookID", "title", "published_date", "standard_charge", "penalty_charge", "publisherID" }))
                 {
@@ -173,7 +173,7 @@ namespace LibraryManagement.Controllers
                         }
                         else
                         {
-                            bookToUpdate.Authors.Add(author));
+                            bookToUpdate.Authors.Add(author);
                         }
                     }
 

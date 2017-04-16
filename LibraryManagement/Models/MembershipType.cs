@@ -17,7 +17,7 @@ namespace LibraryManagement.Models
         public int membershipTypeID { get; set; }
         [DisplayName("Membership Type Name"), Required]
         public string membership_type_name { get; set; }
-        [DisplayName("Number of Books allowed"), Required]
+        [DisplayName("Books allowed"), Required]
         public int books_allowed { get; set; }
 
         public virtual ICollection<Member> Members { get; set; }

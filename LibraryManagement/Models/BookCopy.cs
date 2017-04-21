@@ -25,6 +25,9 @@ namespace LibraryManagement.Models
 
         [DisplayName("Rack"), Required]
         public int rackID { get; set; }
+
+        [DisplayName("Loan Status"), DefaultValue(false)]
+        public bool loan_status { get; set; }
         public virtual Book Book { get; set; }
         public virtual Rack Rack { get; set; }
 

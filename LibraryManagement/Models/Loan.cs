@@ -21,13 +21,13 @@ namespace LibraryManagement.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime date_out { get; set; }
 
-        [DisplayName("Due Date"), Required, DataType(DataType.Date)]
+        [DisplayName("Due Date"), DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime date_due { get; set; }
+        public DateTime? date_due { get; set; }
 
         [DisplayName("Return Date"), DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime date_returned { get; set; }
+        public DateTime? date_returned { get; set; }
 
         [DisplayName("Book Copy ID"), Required]
         public int bookCopyID { get; set; }

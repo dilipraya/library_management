@@ -19,6 +19,9 @@ namespace LibraryManagement.Controllers
         // GET: /Book/
         public ActionResult Index()
         {
+            /**
+             *  var books = db.Books.Where(b => b.BookCopies.Any(bc => bc.Loans.Any(l => l.date_returned == null)));
+             */
             var books = db.Books.Include(b => b.Publisher);
             return View(books.ToList());
         }
@@ -103,6 +106,7 @@ namespace LibraryManagement.Controllers
                     }
                 }
                 db.Books.Add(bookToAdd);
+                ViewBag.ResultMessage = "Succes, Book has been added.";
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -237,6 +241,13 @@ namespace LibraryManagement.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        // GET: /Book/
+        public ActionResult BookLoans()
+        {
+            var books = db.Books.Include(b => b.Publisher);
+            return View(books.ToList());
         }
     }
 }

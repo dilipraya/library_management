@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Data.Entity;
 using LibraryManagement.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity;
 
 namespace LibraryManagement.DAL
 {
@@ -174,7 +176,7 @@ namespace LibraryManagement.DAL
             context.Books.Add(book5);
             context.Books.Add(book6);
             context.SaveChanges();
-
+           
         }
     }
 }

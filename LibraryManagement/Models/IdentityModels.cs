@@ -16,8 +16,6 @@ namespace LibraryManagement.Models
 
         [Required]
         public string LastName { get; set; }
-        [Required, DefaultValue(false)]
-        public bool is_manager { get; set; }
 
 
 

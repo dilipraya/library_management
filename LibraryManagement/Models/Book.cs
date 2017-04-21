@@ -41,5 +41,10 @@ namespace LibraryManagement.Models
         public virtual ICollection<Author> Authors { get; set; }
         public virtual ICollection<BookCategory> BookCategories { get; set; }
         public virtual ICollection<BookCopy> BookCopies { get; set; }
+
+        public string author_name
+        {
+            get; set;
+        }
     }
 }

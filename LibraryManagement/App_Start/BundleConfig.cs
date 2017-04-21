@@ -9,8 +9,6 @@ namespace LibraryManagement
         public static void RegisterBundles(BundleCollection bundles)
         {
 
-
-
             // Vendor scripts
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-2.1.1.min.js"));
@@ -53,6 +51,15 @@ namespace LibraryManagement
             bundles.Add(new ScriptBundle("~/plugins/iCheck").Include(
                       "~/Scripts/plugins/iCheck/icheck.min.js"));
             
+            // DataTables
+            bundles.Add(new StyleBundle("~/Content/plugins/dataTables").Include(
+                      "~/Content/plugins/dataTables/datatables.min.css", new CssRewriteUrlTransform()));
+            bundles.Add(new ScriptBundle("~/plugins/dataTables").Include(
+                      "~/Scripts/plugins/dataTables/datatables.min.js"));
+
+            bundles.Add(new ScriptBundle("~/plugins/jeditable").Include(
+                      "~/Scripts/plugins/jeditable/jquery.jeditable.js"));
+
 
         }
     }

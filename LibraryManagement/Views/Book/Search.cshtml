@@ -3,6 +3,9 @@
 @{
     ViewBag.Title = "Index";
 }
+    
+
+
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-sm-4">
         <h2>Index</h2>
@@ -13,18 +16,11 @@
         </ol>
     </div>
 </div>
-@if (TempData["Success"] != null)
+@if (ViewBag.ResultMessage != null)
 {
     <div class="alert alert-success alert-dismissable">
         <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-        <strong>@TempData["Success"]</strong>
-    </div>
-}
-@if (TempData["Error"] != null)
-{
-    <div class="alert alert-danger alert-dismissable">
-        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-        <strong>@TempData["Error"]</strong>
+        @ViewBag.ResultMessage
     </div>
 }
 <div class="wrapper wrapper-content animated fadeInRight">

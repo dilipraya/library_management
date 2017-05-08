@@ -53,9 +53,11 @@ namespace LibraryManagement.Controllers
             {
                 db.MembershipTypes.Add(membershipType);
                 db.SaveChanges();
+                TempData["Success"] = "Success, Member Type has been added.";
                 return RedirectToAction("Index");
             }
 
+            TempData["Error"] = "Error, Member Type could not be added.";
             return View(membershipType);
         }
 
@@ -85,8 +87,10 @@ namespace LibraryManagement.Controllers
             {
                 db.Entry(membershipType).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["Success"] = "Success, Member Type has been updated.";
                 return RedirectToAction("Index");
             }
+            TempData["Error"] = "Sorry, Member Type could not be updated.";
             return View(membershipType);
         }
 
@@ -113,6 +117,7 @@ namespace LibraryManagement.Controllers
             MembershipType membershipType = db.MembershipTypes.Find(id);
             db.MembershipTypes.Remove(membershipType);
             db.SaveChanges();
+            TempData["Success"] = "Success, Member Type has been deleted.";
             return RedirectToAction("Index");
         }
 

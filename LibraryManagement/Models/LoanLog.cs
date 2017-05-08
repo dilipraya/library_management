@@ -9,9 +9,6 @@ namespace LibraryManagement.Models
 {
     public class LoanLog
     {
-        public enum Type{
-            Out, Returned
-        }
 
         [key, DisplayName("Loan Log ID")]
         public int LoanLogID { get; set; }
@@ -19,11 +16,11 @@ namespace LibraryManagement.Models
         [DisplayName("Loan ID")]
         public int LoanID { get; set; }
 
-        [DisplayName("User ID")]
-        public int userID { get; set; }
+        [DisplayName("User Name"), Required]
+        public string username{ get; set; }
 
         [DisplayName("Loan Type"), Required]
-        public Type loan_type { get; set; }
+        public string loan_type { get; set; }
 
         public Loan Loan { get; set; }
     }

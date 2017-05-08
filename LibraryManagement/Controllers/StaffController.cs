@@ -43,18 +43,40 @@ namespace LibraryManagement.Controllers
                 var result = manager.Create(user, model.Password);
                 if (result.Succeeded)
                 {
-                    ViewBag.ResultMessage = "Succes, User was added.";
+                    TempData["Success"] = "Succes, User was added.";
                     return RedirectToAction("Index");
                 }
                 else
                 {
-                    ViewBag.ResultMessage = "Sorry, User could not be added.";
+                    TempData["Error"] = "Sorry, User could not be added.";
                     return View("Index");
                 }
             }
-
-            // If we got this far, something failed, redisplay form
+            
+            TempData["Error"] = "Sorry, User could not be added.";
             return View(model);
+        }
+
+
+        public ActionResult Edit(string username)
+        {
+           return View();
+        }
+
+        [HttpPost]
+        public ActionResult Edit(CreateUserViewModel models)
+        {
+
+            TempData["Success"] = "Success, User has been updated.";
+            return RedirectToAction("Index");
+        }
+
+        // POST: /Shelf/Delete/5
+        [HttpPost, ActionName("Delete")]
+        public ActionResult Delete()
+        {
+            TempData["Success"] = "Success, User has been deleted.";
+            return RedirectToAction("Index");
         }
     }
 }

@@ -3,6 +3,9 @@
 @{
     ViewBag.Title = "Index";
 }
+    
+
+
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-sm-4">
         <h2>Index</h2>
@@ -20,6 +23,7 @@
         <strong>@TempData["Success"]</strong>
     </div>
 }
+
 @if (TempData["Error"] != null)
 {
     <div class="alert alert-danger alert-dismissable">
@@ -50,13 +54,11 @@
                             <tr>
                                 <th>S.N.</th>
                                 <th>@Html.DisplayNameFor(model => model.title)</th>
-                                <th>@Html.DisplayNameFor(model => model.standard_charge)</th>
-                                <th>@Html.DisplayNameFor(model => model.penalty_charge)</th>
                                 <th>Publisher Name</th>
-                                <th>Book Copies</th>
                                 <th>
                                     Authors
                                 </th>
+                                <th>Loans</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -73,23 +75,8 @@
         <td>
             @Html.DisplayFor(modelItem => item.title)
         </td>
-
-        <td>
-            @Html.DisplayFor(modelItem => item.standard_charge)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.penalty_charge)
-        </td>
         <td>
             @Html.DisplayFor(modelItem => item.Publisher.name)
-        </td>
-        <td>
-           @{  
-               int bookCopyCount = item.BookCopies.Count();
-               int bookCopyOnLoanCount = item.BookCopies.Where(x => x.loan_status == true).Count();
-           }
-            <div class="badge badge-primary">Book Copies: @(bookCopyCount)</div>
-            <div class="badge badge-danger">On Loan: @(bookCopyOnLoanCount)</div>
         </td>
         <td>
             @if (item.Authors != null)
@@ -100,7 +87,42 @@
 
                 }
             }
-        </td>
+            </td>
+            <td> 
+            @if (item.BookCopies.Any(bc => bc.Loans.Count() > 0))
+                {
+                    <h4>Loans</h4>
+                    <table class="table table-bordered table-condensed">
+                        <thead>
+                            <tr class="active">
+                                <th>Loan Id</th>
+                                <th>Book Title</th>
+                                <th>Book Copy No</th>
+                                <th>Loaned date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+    @foreach (var bookCopy in item.BookCopies)
+    {
+        foreach (var loan in bookCopy.Loans.OrderByDescending(lo => lo.date_out))
+        {
+                                <tr>
+                                    <td>@loan.loanID</td>
+                                    <td>@loan.BookCopy.Book.title</td>
+                                    <td>@loan.BookCopy.bookCopyNo</td>
+                                    <td>@loan.date_out.ToString("MM/dd/yyyy")</td>
+                            </tr>
+        }
+    }
+                        </tbody>
+                    </table>
+            }
+            else
+            {
+
+                <div class="badge badge-danger">Never Loaned</div>
+            }
+            </td>
         <td>
             @Html.ActionLink("Details", "Details", new { id = item.bookID }, new { @class = "btn btn-primary btn-sm" })
             @Html.ActionLink("Edit", "Edit", new { id = item.bookID }, new { @class = "btn btn-white btn-sm" })
@@ -108,19 +130,18 @@
         </td>
     </tr>
 }
+                            }
                         </tbody>
                         <tfoot>
                             <tr>
                                 <th>S.N.</th>
                                 <th>@Html.DisplayNameFor(model => model.title)</th>
-                                <th>@Html.DisplayNameFor(model => model.standard_charge)</th>
-                                <th>@Html.DisplayNameFor(model => model.penalty_charge)</th>
                                 <th>Publisher Name</th>
                                 <th>
                                     Authors
                                 </th>                                
                                 <th>
-                                    Book Copies
+                                    Loans
                                 </th>
                                 <th>Actions</th>
                             </tr>

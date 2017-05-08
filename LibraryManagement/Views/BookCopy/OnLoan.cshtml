@@ -1,4 +1,4 @@
-﻿@model IEnumerable<LibraryManagement.Models.BookCopy>
+﻿@model IEnumerable<LibraryManagement.Models.Loan>
 
 @{
     ViewBag.Title = "Index";
@@ -9,11 +9,12 @@
         <h2>Index</h2>
         <ol class="breadcrumb">
             <li class="active">
-                <strong>BookCopy</strong>
+                <strong>Book Copy On Loan</strong>
             </li>
         </ol>
     </div>
 </div>
+
 @if (TempData["Success"] != null)
 {
     <div class="alert alert-success alert-dismissable">
@@ -21,6 +22,7 @@
         <strong>@TempData["Success"]</strong>
     </div>
 }
+
 @if (TempData["Error"] != null)
 {
     <div class="alert alert-danger alert-dismissable">
@@ -33,29 +35,30 @@
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>List of BookCopy</h5>
+                    <h5>List of Book Copies on Loan</h5>
 					<div class="ibox-tools">
                         @Html.ActionLink("Old Book Copies", "Old", null, new { @class = "btn btn-danger btn-xs" })
-						@Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary btn-xs"})
-					</div>
+                        @Html.ActionLink("All Book Copies", "Index", null, new { @class = "btn btn-primary btn-xs" })
+                    </div>
                 </div>
                 <div class="ibox-content">
+
 <table class="table table-striped">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Book.title)
+            @Html.DisplayNameFor(model => model.date_out)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Rack.rack_name)
+            @Html.DisplayNameFor(model => model.BookCopy.Book.title)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.bookCopyNo)
+            @Html.DisplayNameFor(model => model.BookCopy.bookCopyNo)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.loan_status)
+            Loan Member
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.added_date)
+            Loan Staff
         </th>
         <th>Actions</th>
     </tr>
@@ -63,35 +66,29 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Book.title)
+            @Html.DisplayFor(modelItem => item.date_out)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Rack.rack_name)
+            @Html.DisplayFor(modelItem => item.BookCopy.Book.title)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.bookCopyNo)
+            @Html.DisplayFor(modelItem => item.BookCopy.bookCopyNo)
         </td>
         <td>
-            @if (item.loan_status == true)
-            {
-                @:<div class="badge badge-danger">On Loan</div>
-            }else
-            {
-                @:<div class="badge badge-primary">In Library</div>
+            @Html.ActionLink(item.Member.first_name + " " + item.Member.last_name, "Details", "Member", new { id = item.Member.memberID }, new { @class = "btn btn-default active btn-block btn-xs" })
+        </td>
+        <td>
+            @{
+                var log = item.LoanLogs.First(ll => ll.loan_type == "Out");
             }
+
+            <span>@log.username</span>
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.added_date)
-        </td>
-        <td>
-            @if (item.loan_status == true)
-            {
+            
                 @Html.ActionLink("Return", "Return", "BookCopy", new { id = item.bookCopyID }, new { @class = "btn btn-primary active btn-sm" })
-            }
-            else
-            {
-                @Html.ActionLink("Loan", "Loan", "BookCopy", new { id = item.bookCopyID }, new { @class = "btn btn-danger active btn-sm" })
-            }
+
+           
 			@Html.ActionLink("Details", "Details", new { id=item.bookCopyID }, new { @class = "btn btn-primary btn-sm"})
             @Html.ActionLink("Edit", "Edit", new { id=item.bookCopyID }, new { @class = "btn btn-white btn-sm"})
             @Html.ActionLink("Delete", "Delete", new { id=item.bookCopyID }, new { @class = "btn btn-white btn-sm"})

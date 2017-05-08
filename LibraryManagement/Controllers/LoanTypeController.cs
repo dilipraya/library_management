@@ -53,9 +53,11 @@ namespace LibraryManagement.Controllers
             {
                 db.LoanTypes.Add(loanType);
                 db.SaveChanges();
+                TempData["Success"] = "Success, Loan Type has been added.";
                 return RedirectToAction("Index");
             }
 
+            TempData["Error"] = "Sorry, Loan Type could not be added.";
             return View(loanType);
         }
 
@@ -85,8 +87,10 @@ namespace LibraryManagement.Controllers
             {
                 db.Entry(loanType).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["Success"] = "Success, Loan Type has been updated.";
                 return RedirectToAction("Index");
             }
+            TempData["Error"] = "Sorry, Loan Type could not be updated.";
             return View(loanType);
         }
 
@@ -113,6 +117,7 @@ namespace LibraryManagement.Controllers
             LoanType loanType = db.LoanTypes.Find(id);
             db.LoanTypes.Remove(loanType);
             db.SaveChanges();
+            TempData["Success"] = "Success, Loan Type has been deleted.";
             return RedirectToAction("Index");
         }
 

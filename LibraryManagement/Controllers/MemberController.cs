@@ -18,7 +18,8 @@ namespace LibraryManagement.Controllers
         // GET: /Member/
         public ActionResult Index()
         {
-            var members = db.Members.Include(m => m.MembershipType);
+            // Sort member by their first name alphabetically
+            var members = db.Members.Include(m => m.MembershipType).OrderBy(m => m.first_name.Length).ThenBy(m => m.first_name);
             return View(members.ToList());
         }
 
@@ -54,11 +55,13 @@ namespace LibraryManagement.Controllers
             if (ModelState.IsValid)
             {
                 db.Members.Add(member);
+                TempData["Success"] = "Success, Member has been added.";
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.MembershipTypeID = new SelectList(db.MembershipTypes, "membershipTypeID", "membership_type_name", member.MembershipTypeID);
+            TempData["Error"] = "Sorry, Member could not be added.";
+            ViewBag.membershipTypeID = new SelectList(db.MembershipTypes, "membershipTypeID", "membership_type_name", member.membershipTypeID);
             return View(member);
         }
 
@@ -74,7 +77,7 @@ namespace LibraryManagement.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.MembershipTypeID = new SelectList(db.MembershipTypes, "membershipTypeID", "membership_type_name", member.MembershipTypeID);
+            ViewBag.membershipTypeID = new SelectList(db.MembershipTypes, "membershipTypeID", "membership_type_name", member.membershipTypeID);
             return View(member);
         }
 
@@ -88,10 +91,12 @@ namespace LibraryManagement.Controllers
             if (ModelState.IsValid)
             {
                 db.Entry(member).State = EntityState.Modified;
+                TempData["Success"] = "Success, Member has been updated.";
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.MembershipTypeID = new SelectList(db.MembershipTypes, "membershipTypeID", "membership_type_name", member.MembershipTypeID);
+            TempData["Error"] = "Sorry, Member could not be updated.";
+            ViewBag.MembershipTypeID = new SelectList(db.MembershipTypes, "membershipTypeID", "membership_type_name", member.membershipTypeID);
             return View(member);
         }
 
@@ -118,6 +123,7 @@ namespace LibraryManagement.Controllers
             Member member = db.Members.Find(id);
             db.Members.Remove(member);
             db.SaveChanges();
+            TempData["Success"] = "Success, Member has been deleted.";
             return RedirectToAction("Index");
         }
 
@@ -129,5 +135,15 @@ namespace LibraryManagement.Controllers
             }
             base.Dispose(disposing);
         }
+
+
+        // GET: /Member/Inactive
+        public ActionResult Inactive()
+        {
+            DateTime last_loan_date = DateTime.Today.AddDays(-31); // 31 Days before today
+            var members = db.Members.Where(m => m.Loans.Count() > 0).Where(m => m.Loans.All(lo => lo.date_out < last_loan_date));
+            return View(members.ToList());
+        }
+
     }
 }

@@ -1,32 +1,42 @@
 ﻿@model IEnumerable<LibraryManagement.Models.Book>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Search Book";
 }
+    
+
 <div class="row wrapper border-bottom white-bg page-heading">
-    <div class="col-sm-4">
-        <h2>Index</h2>
+    <div class="col-sm-1">
+        <h2>Book</h2>
         <ol class="breadcrumb">
             <li class="active">
-                <strong>Book</strong>
+                <strong>Search Book</strong>
             </li>
         </ol>
     </div>
+    <div class="col-sm-11">
+        @using (Html.BeginForm("Search", "BookSearch", FormMethod.Get))
+            {
+            @Html.ValidationSummary(false)
+            <div class="col-md-12">
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <input type="text" placeholder="Type Here..." class="form-control" name="search_name">
+                            <small>Enter book title or author name or publisher name to Search.</small>
+                            <br>
+                            <label><input type="checkbox" class="i-checks" name="book_in_shelf"> Books in Shelf</label>
+                        </div>
+                        <div class="col-md-4">
+                            <button type="submit" class="btn btn-primary block full-width m-b">Search Book</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
 </div>
-@if (TempData["Success"] != null)
-{
-    <div class="alert alert-success alert-dismissable">
-        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-        <strong>@TempData["Success"]</strong>
-    </div>
-}
-@if (TempData["Error"] != null)
-{
-    <div class="alert alert-danger alert-dismissable">
-        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-        <strong>@TempData["Error"]</strong>
-    </div>
-}
+
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
         <div class="col-lg-12">
@@ -34,7 +44,6 @@
                 <div class="ibox-title">
                     <h5>Books</h5>
                     <div class="ibox-tools">
-                        @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary btn-xs" })
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>
                         </a>
@@ -86,10 +95,10 @@
         <td>
            @{  
                int bookCopyCount = item.BookCopies.Count();
-               int bookCopyOnLoanCount = item.BookCopies.Where(x => x.loan_status == true).Count();
+               int bookCopyOnShelfCount = item.BookCopies.Where(x => x.loan_status == false).Count();
            }
-            <div class="badge badge-primary">Book Copies: @(bookCopyCount)</div>
-            <div class="badge badge-danger">On Loan: @(bookCopyOnLoanCount)</div>
+            <div class="badge badge-primary">Book Copies: @(bookCopyCount)</div><br />
+            <div class="badge badge-danger">On Shelf: @(bookCopyOnShelfCount)</div>
         </td>
         <td>
             @if (item.Authors != null)
@@ -102,6 +111,7 @@
             }
         </td>
         <td>
+            @Html.ActionLink("Loan", "Details", new { id = item.bookID }, new { @class = "btn btn-danger btn-sm" })
             @Html.ActionLink("Details", "Details", new { id = item.bookID }, new { @class = "btn btn-primary btn-sm" })
             @Html.ActionLink("Edit", "Edit", new { id = item.bookID }, new { @class = "btn btn-white btn-sm" })
             @Html.ActionLink("Delete", "Delete", new { id = item.bookID }, new { @class = "btn btn-white btn-sm" })
@@ -142,6 +152,13 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
+            $(document).on("click", "[type='checkbox']", function (e) {
+                if (this.checked) {
+                    $(this).attr("value", "true");
+                } else {
+                    $(this).attr("value", "false");
+                }
+            });
 
             $('.dataTables-example').DataTable({
                 dom: '<"html5buttons"B>lTfgitp',

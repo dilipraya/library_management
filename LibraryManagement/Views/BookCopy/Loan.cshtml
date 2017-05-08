@@ -1,7 +1,7 @@
 ﻿@model LibraryManagement.Models.Loan
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Loan";
 }
 
 <div class="row wrapper border-bottom white-bg page-heading">
@@ -44,23 +44,14 @@
         <div class="form-group">
             @Html.LabelFor(model => model.date_out, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.date_out)
+                @Html.TextBoxFor(model => model.date_out, new { id="loan_date", @class = "text-box single-line", type="date" });
                 @Html.ValidationMessageFor(model => model.date_out)
             </div>
         </div>
-
-        <div class="form-group">
-            <label class="control-label col-md-2">Book Copy No</label>
-            <div class="col-md-10">
-                @Html.DropDownList("bookCopyID", null, String.Empty, new { @class = "form-control m-b" })
-                @Html.ValidationMessageFor(model => model.bookCopyID)
-            </div>
-        </div>
-
         <div class="form-group">
             <label class="control-label col-md-2">Member</label>
             <div class="col-md-10">
-                @Html.DropDownList("memberID", null, String.Empty, new { @class = "form-control m-b" })
+                @Html.DropDownListFor(model => model.memberID, (SelectList)ViewBag.MembersList, new { @class = "form-control m-b" })
                 @Html.ValidationMessageFor(model => model.memberID)
             </div>
         </div>
@@ -92,4 +83,10 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+<script>
+    @{ 
+        var date = System.DateTime.Now.ToString("yyyy-MM-dd");
+    }
+    $("#loan_date").val("@date");
+    </script>
 }

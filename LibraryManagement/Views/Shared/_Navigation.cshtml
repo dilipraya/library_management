@@ -1,4 +1,5 @@
-﻿<nav class="navbar-default navbar-static-side" role="navigation">
+﻿@using Microsoft.AspNet.Identity;
+<nav class="navbar-default navbar-static-side" role="navigation">
     <div class="sidebar-collapse">
         <ul class="nav" id="side-menu">
             <li class="nav-header">
@@ -12,7 +13,7 @@
                     </a>
                     <ul class="dropdown-menu animated fadeInRight m-t-xs">
                         <li>
-                            @Html.ActionLink("Manage Account", "Manage", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                            @Html.ActionLink("Manage Account", "Manage", "Account", routeValues: null, htmlAttributes: new { title = "Manage" })
                         </li>
                         <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
                     </ul>
@@ -23,98 +24,107 @@
             </li> 
          
            
-            <li class="@Html.IsSelected(controller: "Loan")">
+            <!--
+                <li class="@Html.IsSelected(controller: "Loan")">
                 <a href="@Url.Action("Index", "Loan")"><i class="fa fa-share-square"></i> <span class="nav-label" data-i18n="nav.dashboard">Loan</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Loan", cssClass: "in")">
-                    <li class="@Html.IsSelected(action: "Create")"><a href="@Url.Action("Create", "Loan")">Create</a></li>
-                    <li class="@Html.IsSelected(action: "Index")"><a href="@Url.Action("Index", "Loan")">View</a></li>
+                    <li class="@Html.IsSelected(action: "Create", controller: "Loan")"><a href="@Url.Action("Create", "Loan")">Create</a></li>
+                    <li class="@Html.IsSelected(action: "Index", controller: "Loan")"><a href="@Url.Action("Index", "Loan")">View</a></li>
                 </ul>
             </li>
+                -->
             <li class="@Html.IsSelected(controller: "BookCopy")">
                 <a href="@Url.Action("Index", "BookCopy")"><i class="fa fa-file-text"></i> <span class="nav-label" data-i18n="nav.dashboard">Book Copy</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "BookCopy", cssClass: "in")">
-                    <li class="@Html.IsSelected(action: "Create")"><a href="@Url.Action("Create", "BookCopy")">Create</a></li>
-                    <li class="@Html.IsSelected(action: "Index")"><a href="@Url.Action("Index", "BookCopy")">View</a></li>
+                    <li class="@Html.IsSelected(action: "Create", controller: "BookCopy")"><a href="@Url.Action("Create", "BookCopy")">Create</a></li>
+                    <li class="@Html.IsSelected(action: "Index", controller: "BookCopy")"><a href="@Url.Action("Index", "BookCopy")">View</a></li>
+                    <li class="@Html.IsSelected(action: "OnLoan", controller: "BookCopy")"><a href="@Url.Action("OnLoan", "BookCopy")">Book Copies on Loan</a></li>
                 </ul>
             </li>
             <li class="@Html.IsSelected(controller: "Book")">
                 <a href="@Url.Action("Index", "Book")"><i class="fa fa-book"></i> <span class="nav-label" data-i18n="nav.dashboard">Book</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Book", cssClass: "in")">
-                    <li class="@Html.IsSelected(action: "Create")"><a href="@Url.Action("Create", "Book")">Create</a></li>
-                    <li class="@Html.IsSelected(action: "Index")"><a href="@Url.Action("Index", "Book")">View</a></li>
+                    <li class="@Html.IsSelected(action: "Create", controller: "Book")"><a href="@Url.Action("Create", "Book")">Create</a></li>
+                    <li class="@Html.IsSelected(action: "Index", controller: "Book")"><a href="@Url.Action("Index", "Book")">View Books</a></li>
+                    <li class="@Html.IsSelected(action: "Inactive", controller: "Book")"><a href="@Url.Action("Inactive", "Book")">Inactive Books</a></li>
+                    <li class="@Html.IsSelected(action: "Publication", controller: "Book")"><a href="@Url.Action("Publication", "Book")">View Book with Publisher</a></li>
                 </ul>
             </li>
             <li class="@Html.IsSelected(controller: "Member")">
                 <a href="@Url.Action("Index", "Member")"><i class="fa fa-user"></i> <span class="nav-label" data-i18n="nav.dashboard">Member</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Member", cssClass: "in")">
-                    <li class="@Html.IsSelected(action: "Create")"><a href="@Url.Action("Create", "Member")">Create</a></li>
-                    <li class="@Html.IsSelected(action: "Index")"><a href="@Url.Action("Index", "Member")">View</a></li>
+                    <li class="@Html.IsSelected(action: "Create", controller: "Member")"><a href="@Url.Action("Create", "Member")">Create</a></li>
+                    <li class="@Html.IsSelected(action: "Index", controller: "Member")"><a href="@Url.Action("Index", "Member")">View</a></li>
+                    <li class="@Html.IsSelected(action: "Inactive", controller: "Member")"><a href="@Url.Action("Inactive", "Member")">Inactive Members</a></li>
                 </ul>
             </li>
             <li class="@Html.IsSelected(controller: "Author")">
                 <a href="@Url.Action("Index", "Author")"><i class="fa fa-male"></i> <span class="nav-label" data-i18n="nav.dashboard">Author</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Author", cssClass: "in")">
-                    <li class="@Html.IsSelected(action: "Create")"><a href="@Url.Action("Create", "Author")">Create</a></li>
-                    <li class="@Html.IsSelected(action: "Index")"><a href="@Url.Action("Index", "Author")">View</a></li>
+                    <li class="@Html.IsSelected(action: "Create", controller: "Author")"><a href="@Url.Action("Create", "Author")">Create</a></li>
+                    <li class="@Html.IsSelected(action: "Index", controller: "Author")"><a href="@Url.Action("Index", "Author")">View</a></li>
                 </ul>
             </li>
             <li class="@Html.IsSelected(controller: "Publisher")">
                 <a href="@Url.Action("Index", "Publisher")"><i class="fa fa-paper-plane"></i> <span class="nav-label" data-i18n="nav.dashboard">Publisher</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Publisher", cssClass: "in")">
-                    <li class="@Html.IsSelected(action: "Create")"><a href="@Url.Action("Create", "Publisher")">Create</a></li>
-                    <li class="@Html.IsSelected(action: "Index")"><a href="@Url.Action("Index", "Publisher")">View</a></li>
+                    <li class="@Html.IsSelected(action: "Create", controller: "Publisher")"><a href="@Url.Action("Create", "Publisher")">Create</a></li>
+                    <li class="@Html.IsSelected(action: "Index", controller: "Publisher")"><a href="@Url.Action("Index", "Publisher")">View</a></li>
                 </ul>
             </li>
             <li class="@Html.IsSelected(controller: "LoanType")">
                 <a href="@Url.Action("Index", "LoanType")"><i class="fa fa-list-ul"></i> <span class="nav-label" data-i18n="nav.dashboard">Loan Type</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "LoanType", cssClass: "in")">
-                    <li class="@Html.IsSelected(action: "Create")"><a href="@Url.Action("Create", "LoanType")">Create</a></li>
-                    <li class="@Html.IsSelected(action: "Index")"><a href="@Url.Action("Index", "LoanType")">View</a></li>
+                    <li class="@Html.IsSelected(action: "Create", controller: "LoanType")"><a href="@Url.Action("Create", "LoanType")">Create</a></li>
+                    <li class="@Html.IsSelected(action: "Index", controller: "LoanType")"><a href="@Url.Action("Index", "LoanType")">View</a></li>
                 </ul>
             </li>
             <li class="@Html.IsSelected(controller: "MembershipType")">
                 <a href="@Url.Action("Index", "MembershipType")"><i class="fa fa-group"></i> <span class="nav-label" data-i18n="nav.dashboard">Membership Type</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "MembershipType", cssClass: "in")">
-                    <li class="@Html.IsSelected(action: "Create")"><a href="@Url.Action("Create", "MembershipType")">Create</a></li>
-                    <li class="@Html.IsSelected(action: "Index")"><a href="@Url.Action("Index", "MembershipType")">View</a></li>
+                    <li class="@Html.IsSelected(action: "Create", controller: "MembershipType")"><a href="@Url.Action("Create", "MembershipType")">Create</a></li>
+                    <li class="@Html.IsSelected(action: "Index", controller: "MembershipType")"><a href="@Url.Action("Index", "MembershipType")">View</a></li>
                 </ul>
             </li> 
             <li class="@Html.IsSelected(controller: "BookCategory")">
                 <a href="@Url.Action("Index", "BookCategory")"><i class="fa fa-bars"></i> <span class="nav-label" data-i18n="nav.dashboard">Book Category</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "BookCategory", cssClass: "in")">
-                    <li class="@Html.IsSelected(action: "Create")"><a href="@Url.Action("Create", "BookCategory")">Create</a></li>
-                    <li class="@Html.IsSelected(action: "Index")"><a href="@Url.Action("Index", "BookCategory")">View</a></li>
+                    <li class="@Html.IsSelected(action: "Create", controller: "BookCategory")"><a href="@Url.Action("Create", "BookCategory")">Create</a></li>
+                    <li class="@Html.IsSelected(action: "Index", controller: "BookCategory")"><a href="@Url.Action("Index", "BookCategory")">View</a></li>
                 </ul>
             </li>
             <li class="@Html.IsSelected(controller: "Rack")">
                 <a href="@Url.Action("Index", "Rack")"><i class="fa fa-archive"></i> <span class="nav-label" data-i18n="nav.dashboard">Rack</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Rack", cssClass: "in")">
-                    <li class="@Html.IsSelected(action: "Create")"><a href="@Url.Action("Create", "Rack")">Create</a></li>
-                    <li class="@Html.IsSelected(action: "Index")"><a href="@Url.Action("Index", "Rack")">View</a></li>
+                    <li class="@Html.IsSelected(action: "Create", controller: "Rack")"><a href="@Url.Action("Create", "Rack")">Create</a></li>
+                    <li class="@Html.IsSelected(action: "Index", controller: "Rack")"><a href="@Url.Action("Index", "Rack")">View</a></li>
                 </ul>
             </li>
             <li class="@Html.IsSelected(controller: "Shelf")">
                 <a href="@Url.Action("Index", "Shelf")"><i class="fa fa-tasks"></i> <span class="nav-label" data-i18n="nav.dashboard">Shelf</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Shelf", cssClass: "in")">
-                    <li class="@Html.IsSelected(action: "Create")"><a href="@Url.Action("Create", "Shelf")">Create</a></li>
-                    <li class="@Html.IsSelected(action: "Index")"><a href="@Url.Action("Index", "Shelf")">View</a></li>
+                    <li class="@Html.IsSelected(action: "Create", controller: "Shelf")"><a href="@Url.Action("Create", "Shelf")">Create</a></li>
+                    <li class="@Html.IsSelected(action: "Index", controller: "Shelf")"><a href="@Url.Action("Index", "Shelf")">View</a></li>
                 </ul>
             </li>
-            <li class="@Html.IsSelected(controller: "Staff")">
-                <a href="@Url.Action("Index", "Staff")"><i class="fa fa-wrench"></i> <span class="nav-label" data-i18n="nav.dashboard">Staff</span> <span class="fa arrow"></span></a>
+           @if (Request.IsAuthenticated && (User.IsInRole("Manager") || User.IsInRole("Administrator")))
+           {<li class="@Html.IsSelected(controller: "Staff") @Html.IsSelected(controller: "Role")">
+                <a href="@Url.Action("Index", "Staff")"><i class="fa fa-wrench"></i> <span class="nav-label" data-i18n="nav.dashboard">Staff Management</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Staff", cssClass: "in")">
-                    <li class="@Html.IsSelected(action: "Create")"><a href="@Url.Action("Create", "Staff")">Create</a></li>
-                    <li class="@Html.IsSelected(action: "Index")"><a href="@Url.Action("Index", "Staff")">View</a></li>
+                    <li class="@Html.IsSelected(action: "Create", controller: "Staff")"><a href="@Url.Action("Create", "Staff")">Create</a></li>
+                    <li class="@Html.IsSelected(action: "Index", controller: "Staff")"><a href="@Url.Action("Index", "Staff")">View</a></li>
+                    <li class="@Html.IsSelected(controller: "Role")">
+                <a href="@Url.Action("Index", "Role")"><i class="fa fa-shield"></i> <span class="nav-label" data-i18n="nav.dashboard">Role</span> <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Role", cssClass: "in")">
+                    <li class="@Html.IsSelected(action: "Create", controller: "Role")"><a href="@Url.Action("Create", "Role")">Create</a></li>
+                    <li class="@Html.IsSelected(action: "Index", controller: "Role")"><a href="@Url.Action("Index", "Role")">View</a></li>
+                    <li class="@Html.IsSelected(action: "ManageUsers", controller: "Role")"><a href="@Url.Action("ManageUsers", "Role")">Manage Roles</a></li>
                 </ul>
             </li>
-            <li class="@Html.IsSelected(controller: "Role")">
-                <a href="@Url.Action("Index", "Role")"><i class="fa fa-wrench"></i> <span class="nav-label" data-i18n="nav.dashboard">Role</span> <span class="fa arrow"></span></a>
-                <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Staff", cssClass: "in")">
-                    <li class="@Html.IsSelected(action: "Create")"><a href="@Url.Action("Create", "Role")">Create</a></li>
-                    <li class="@Html.IsSelected(action: "Index")"><a href="@Url.Action("Index", "Role")">View</a></li>
-                    <li class="@Html.IsSelected(action: "ManageUsers")"><a href="@Url.Action("ManageUsers", "Role")">Manage Roles</a></li>
                 </ul>
             </li>
+            
+            }
         </ul>
     </div>
 </nav>

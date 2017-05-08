@@ -14,8 +14,20 @@
         </ol>
     </div>
 </div>
-
-
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success alert-dismissable">
+        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+        <strong>@TempData["Success"]</strong>
+    </div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger alert-dismissable">
+        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+        <strong>@TempData["Error"]</strong>
+    </div>
+}
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
         <div class="col-lg-12">
@@ -61,9 +73,15 @@
         <td>
             @user.LastName
         </td>
-        <td>
-            @Html.ActionLink("Delete", "Delete", new { id = user.UserName}, new { @class = "btn btn-danger btn-sm" })
+        <td>@using (Html.BeginForm("Delete", "Staff"))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ActionLink("Edit", "Edit", new { id = user.UserName }, new { @class = "btn btn-white btn-sm" })
+
+    <input type="submit" value="Delete" class="btn btn-danger btn-sm" />
+}
         </td>
+
     </tr>
 }
 

@@ -56,8 +56,75 @@
             @Html.DisplayFor(model => model.bookCopyNo)
         </dd>
 
-    </dl>
+        <dt>
+            @Html.DisplayNameFor(model => model.loan_status)
+        </dt>
 
+        <dd>
+            @if (Model.loan_status == true)
+            {
+                @:<div class="badge badge-danger">On Loan</div>
+            }
+            else
+            {
+                @:<div class="badge badge-primary">In Library</div>
+            }
+        </dd>
+                     
+                        @if (Model.Loans.Count() > 0)
+                        {
+                            <hr />
+                            <h4>Book Copies Loan History</h4>
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Loan ID</th>
+                                        <th>Book Title</th>
+                                        <th>Book Copy No</th>
+                                        <th>Date Out</th>
+                                        <th>Loan Staff</th>
+                                        <th>Date Due</th>
+                                        <th>Member</th>
+                                        <th>Returned Date</th>
+                                        <th>Return Staff</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var loan in Model.Loans.OrderBy(l => l.date_out))
+                                    {
+                                        <tr>
+                                            <td>@loan.loanID</td>
+                                            <td>@loan.BookCopy.Book.title</td>
+                                            <td>@loan.BookCopy.bookCopyNo</td>
+                                            <td>@loan.date_out.ToString("MM/dd/yyyy")</td>
+                                            <td>@loan.LoanLogs.First(ll => ll.loan_type == "Out").username</td>
+                                            <td>@loan.date_due.Value.ToString("MM/dd/yyyy")</td>
+                                            <td>@loan.Member.first_name @loan.Member.last_name</td>
+                                            <td>
+                                                @if (loan.date_returned == null)
+                                                {
+                                                    @:<div class="badge badge-danger">Not Returned</div>
+
+                                                }else {
+                                                @loan.date_returned.Value.ToString("MM/dd/yyyy")}
+                                            </td>
+                                            <td>@if(loan.LoanLogs.Where(ll => ll.loan_type == "Return").Count() > 0) {
+                                                <span>@loan.LoanLogs.First(ll => ll.loan_type == "Return").username</span>
+                                            }</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        }
+    </dl>
+@if (Model.loan_status == true)
+{
+    @Html.ActionLink("Return", "Return", "BookCopy", new { id = Model.bookCopyID }, new { @class = "btn btn-danger active" })
+}
+else
+{
+    @Html.ActionLink("Loan", "Loan", "BookCopy", new { id = Model.bookCopyID }, new { @class = "btn btn-danger active" })
+}
 
 	    @Html.ActionLink("Edit", "Edit", new { id = Model.bookCopyID }, new { @class = "btn btn-primary"})
     @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-white"})

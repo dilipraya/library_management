@@ -14,7 +14,20 @@
         </ol>
     </div>
 </div>
-
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success alert-dismissable">
+        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+        <strong>@TempData["Success"]</strong>
+    </div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger alert-dismissable">
+        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+        <strong>@TempData["Error"]</strong>
+    </div>
+}
 
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">

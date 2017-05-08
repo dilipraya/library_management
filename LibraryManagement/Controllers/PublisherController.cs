@@ -53,9 +53,11 @@ namespace LibraryManagement.Controllers
             {
                 db.Publishers.Add(publisher);
                 db.SaveChanges();
+                TempData["Success"] = "Success, Publisher has been added.";
                 return RedirectToAction("Index");
             }
 
+            TempData["Error"] = "Sorry, Publisher could not be added.";
             return View(publisher);
         }
 
@@ -85,8 +87,10 @@ namespace LibraryManagement.Controllers
             {
                 db.Entry(publisher).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["Success"] = "Success, Publisher has been updated.";
                 return RedirectToAction("Index");
             }
+            TempData["Error"] = "Sorry, Publisher could not be updated.";
             return View(publisher);
         }
 
@@ -113,6 +117,7 @@ namespace LibraryManagement.Controllers
             Publisher publisher = db.Publishers.Find(id);
             db.Publishers.Remove(publisher);
             db.SaveChanges();
+            TempData["Success"] = "Success, Publisher has been deleted.";
             return RedirectToAction("Index");
         }
 

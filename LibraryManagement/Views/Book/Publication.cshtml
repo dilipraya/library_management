@@ -1,30 +1,26 @@
 ﻿@model IEnumerable<LibraryManagement.Models.Book>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Book with Publisher";
 }
+    
+
+
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-sm-4">
-        <h2>Index</h2>
+        <h2>Book and Publisher</h2>
         <ol class="breadcrumb">
             <li class="active">
-                <strong>Book</strong>
+                <strong>Book & Publisher</strong>
             </li>
         </ol>
     </div>
 </div>
-@if (TempData["Success"] != null)
+@if (ViewBag.ResultMessage != null)
 {
     <div class="alert alert-success alert-dismissable">
         <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-        <strong>@TempData["Success"]</strong>
-    </div>
-}
-@if (TempData["Error"] != null)
-{
-    <div class="alert alert-danger alert-dismissable">
-        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-        <strong>@TempData["Error"]</strong>
+        @ViewBag.ResultMessage
     </div>
 }
 <div class="wrapper wrapper-content animated fadeInRight">
@@ -49,11 +45,10 @@
                         <thead>
                             <tr>
                                 <th>S.N.</th>
+                                <th>@Html.DisplayNameFor(model => model.published_date)</th>
                                 <th>@Html.DisplayNameFor(model => model.title)</th>
-                                <th>@Html.DisplayNameFor(model => model.standard_charge)</th>
-                                <th>@Html.DisplayNameFor(model => model.penalty_charge)</th>
-                                <th>Publisher Name</th>
-                                <th>Book Copies</th>
+                                <th>@Html.DisplayNameFor(model => model.Publisher.name)</th>
+                                <th>@Html.DisplayNameFor(model => model.Publisher.press)</th>
                                 <th>
                                     Authors
                                 </th>
@@ -71,32 +66,23 @@
             @(counter++)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.published_date)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.title)
         </td>
-
         <td>
-            @Html.DisplayFor(modelItem => item.standard_charge)
+            Publication Name
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.penalty_charge)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Publisher.name)
-        </td>
-        <td>
-           @{  
-               int bookCopyCount = item.BookCopies.Count();
-               int bookCopyOnLoanCount = item.BookCopies.Where(x => x.loan_status == true).Count();
-           }
-            <div class="badge badge-primary">Book Copies: @(bookCopyCount)</div>
-            <div class="badge badge-danger">On Loan: @(bookCopyOnLoanCount)</div>
+            @Html.DisplayFor(modelItem => item.Publisher.press)
         </td>
         <td>
             @if (item.Authors != null)
             {
-                foreach (var author in item.Authors)
+                foreach (var author in item.Authors.OrderBy(a => a.last_name))
                 {
-                    @Html.ActionLink(author.first_name + " " + author.last_name, "Details", "Author", new { id = author.authorID }, new { @class = "btn btn-default active btn-block btn-xs" })
+                    @Html.ActionLink(author.last_name + ", " + author.first_name, "Details", "Author", new { id = author.authorID }, new { @class = "btn btn-default active btn-block btn-xs" })
 
                 }
             }
@@ -112,15 +98,12 @@
                         <tfoot>
                             <tr>
                                 <th>S.N.</th>
+                                <th>@Html.DisplayNameFor(model => model.published_date)</th>
                                 <th>@Html.DisplayNameFor(model => model.title)</th>
-                                <th>@Html.DisplayNameFor(model => model.standard_charge)</th>
-                                <th>@Html.DisplayNameFor(model => model.penalty_charge)</th>
-                                <th>Publisher Name</th>
+                                <th>@Html.DisplayNameFor(model => model.Publisher.name)</th>
+                                <th>@Html.DisplayNameFor(model => model.Publisher.press)</th>
                                 <th>
                                     Authors
-                                </th>                                
-                                <th>
-                                    Book Copies
                                 </th>
                                 <th>Actions</th>
                             </tr>

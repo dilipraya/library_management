@@ -19,9 +19,6 @@ namespace LibraryManagement.Controllers
         // GET: /Book/
         public ActionResult Index()
         {
-            /**
-             *  var books = db.Books.Where(b => b.BookCopies.Any(bc => bc.Loans.Any(l => l.date_returned == null)));
-             */
             var books = db.Books.Include(b => b.Publisher);
             return View(books.ToList());
         }
@@ -67,7 +64,7 @@ namespace LibraryManagement.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="bookID,title,published_date,standard_charge,penalty_charge,publisherID")] Book book, BookViewModel bookView)
+        public ActionResult Create([Bind(Include = "bookID,title,published_date,standard_charge,penalty_charge,publisherID")] Book book, BookViewModel bookView)
         {
 
             if (ModelState.IsValid)
@@ -106,12 +103,13 @@ namespace LibraryManagement.Controllers
                     }
                 }
                 db.Books.Add(bookToAdd);
-                ViewBag.ResultMessage = "Succes, Book has been added.";
+                TempData["Success"] = "Success, Book has been added.";
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
             ViewBag.publishedID = new SelectList(db.Publishers, "publisherID", "name", bookView.Book.publisherID);
+            TempData["Error"] = "Sorry, Book could not be added.";
             return View(bookView);
         }
 
@@ -137,14 +135,14 @@ namespace LibraryManagement.Controllers
             var allBookCategoriesList = db.BookCategories.ToList();
             bookViewModel.AllAuthors = allAuthorsList.Select(o => new SelectListItem
             {
-                Text = o.first_name+" "+o.last_name,
+                Text = o.first_name + " " + o.last_name,
                 Value = o.authorID.ToString()
             });
             bookViewModel.AllBookCategories = allBookCategoriesList.Select(o => new SelectListItem
             {
                 Text = o.category_name,
                 Value = o.bookCategoryID.ToString()
-            });   
+            });
             ViewBag.publisherID = new SelectList(db.Publishers, "publisherID", "name", bookViewModel.Book.publisherID);
             return View(bookViewModel);
         }
@@ -154,7 +152,7 @@ namespace LibraryManagement.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="bookID,title,published_date,standard_charge,penalty_charge,publisherID")] Book book, BookViewModel bookView)
+        public ActionResult Edit([Bind(Include = "bookID,title,published_date,standard_charge,penalty_charge,publisherID")] Book book, BookViewModel bookView)
         {
             if (bookView == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
@@ -163,7 +161,7 @@ namespace LibraryManagement.Controllers
                 var bookToUpdate = db.Books
                     .Include(i => i.Authors).Include(i => i.BookCategories).First(i => i.bookID == bookView.Book.bookID);
 
-                if (TryUpdateModel(bookToUpdate, "Book", new string[] { "title", "published_date", "standard_charge", "penalty_charge", "publisherID"}))
+                if (TryUpdateModel(bookToUpdate, "Book", new string[] { "title", "published_date", "standard_charge", "penalty_charge", "publisherID" }))
                 {
                     // Update Authors
                     var newAuthors = db.Authors.Where(
@@ -198,14 +196,16 @@ namespace LibraryManagement.Controllers
                     }
 
                     db.Entry(bookToUpdate).State = EntityState.Modified;
+                    TempData["Success"] = "Success, Book has been updated.";
                     db.SaveChanges();
                 }
-
+                TempData["Error"] = "Sorry, Book could not be updated.";
                 return RedirectToAction("Index");
             }
 
-              ViewBag.publishedID = new SelectList(db.Publishers, "publisherID", "name", bookView.Book.publisherID);
-             return View(bookView);
+            TempData["Error"] = "Sorry, the book could not be updated";
+            ViewBag.publishedID = new SelectList(db.Publishers, "publisherID", "name", bookView.Book.publisherID);
+            return View(bookView);
         }
 
         // GET: /Book/Delete/5
@@ -231,6 +231,7 @@ namespace LibraryManagement.Controllers
             Book book = db.Books.Find(id);
             db.Books.Remove(book);
             db.SaveChanges();
+            TempData["Success"] = "Success, Book has been deleted";
             return RedirectToAction("Index");
         }
 
@@ -249,5 +250,63 @@ namespace LibraryManagement.Controllers
             var books = db.Books.Include(b => b.Publisher);
             return View(books.ToList());
         }
+
+        // POST: /Book/Search
+        [HttpGet]
+        public ActionResult Search(BookSearchModel book)
+        {
+            var books = db.Books.Include(b => b.Publisher);
+            if (book.book_in_shelf == "true")
+            {
+                //check if null or not
+                if (book.search_name != null)
+                {
+                    books = db.Books.Where(b => b.title.Contains(book.search_name) ||
+                                              b.Publisher.name.Contains(book.search_name) ||
+                                              b.Authors.Any(au => au.first_name.Contains(book.search_name) ||
+                                                                  au.last_name.Contains(book.search_name)))
+                                                                  .Where(b => b.BookCopies.Where(x => x.loan_status == false).Count() >= 1)
+                                                                  .Include(b => b.Publisher);
+
+                }
+                else
+                {
+                    books = db.Books.Where(b => b.BookCopies.Where(x => x.loan_status == false).Count() >= 1)
+                                                                     .Include(b => b.Publisher);
+
+                }
+            }
+            else
+            {
+                if (book.search_name != null)
+                {
+                    books = db.Books.Where(b => b.title.Contains(book.search_name) ||
+                                           b.Publisher.name.Contains(book.search_name) ||
+                                           b.Authors.Any(au => au.first_name.Contains(book.search_name) ||
+                                                               au.last_name.Contains(book.search_name))).Include(b => b.Publisher);
+
+                }
+
+            }
+
+            return View("Index", books.ToList());
+
+        }
+
+        // GET: /Book/Publication
+        public ActionResult Publication()
+        {
+            var books = db.Books.Include(b => b.Publisher).OrderBy(b => b.published_date);
+            return View(books.ToList());
+        }
+
+        // GET: /Book/Inactive
+        public ActionResult Inactive()
+        {
+            DateTime last_loan_date = DateTime.Today.AddDays(-31);
+            var books = db.Books.Where(b => b.BookCopies.All(bc => bc.Loans.All(lo => lo.date_out < last_loan_date)));
+            return View(books.ToList());
+        }
+
     }
 }

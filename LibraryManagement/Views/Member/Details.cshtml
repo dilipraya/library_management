@@ -95,9 +95,95 @@
         <dd>
             @Html.DisplayFor(model => model.address)
         </dd>
-
     </dl>
+                    @{
+                        var Loans = Model.Loans.Where(lo => (DateTime.Now - lo.date_out).TotalDays <= 31 ).OrderBy(lo => lo.date_returned);
+                    }
+                    @if (Loans.Count() > 0)
+                    {
+                        <hr />
+                        <h4>Book Loaned In Last 31 Days</h4>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Loan ID</th>
+                                    <th>Book Title</th>
+                                    <th>Book Copy No</th>
+                                    <th>Date Out</th>
+                                    <th>Date Due</th>
+                                    <th>Returned Date</th>
+                                    <th>Total Charge</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var loan in Loans)
+                                {
+                                    <tr>
+                                        <td>@loan.loanID</td>
+                                        <td>@loan.BookCopy.Book.title</td>
+                                        <td>@loan.BookCopy.bookCopyNo</td>
+                                        <td>@loan.date_out.ToString("MM/dd/yyyy")</td>
+                                        <td>@loan.date_due.Value.ToString("MM/dd/yyyy")</td>
+                                        <td>
+                                            @if (loan.date_returned == null)
+                                            {
+                                                @:<div class="badge badge-danger">On Loan</div>
+            }
+                                            else
+                                            {
+                                                @loan.date_returned.Value.ToString("MM/dd/yyyy")
+                                            }
+                                        </td>
+                                </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
 
+
+
+                    @{
+                        var oldLoans = Model.Loans.Where(lo => (DateTime.Now - lo.date_out).TotalDays > 31).OrderBy(lo => lo.date_returned); ;
+                    }
+                    @if (oldLoans.Count() > 0)
+                    {
+                        <hr />
+                        <h4>Book Loaned Before a Month</h4>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Loan ID</th>
+                                    <th>Book Title</th>
+                                    <th>Book Copy No</th>
+                                    <th>Date Out</th>
+                                    <th>Date Due</th>
+                                    <th>Returned Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var loan in oldLoans)
+                                {
+                                    <tr>
+                                        <td>@loan.loanID</td>
+                                        <td>@loan.BookCopy.Book.title</td>
+                                        <td>@loan.BookCopy.bookCopyNo</td>
+                                        <td>@loan.date_out</td>
+                                        <td>@loan.date_due</td>
+                                        <td>
+                                            @if (loan.date_returned == null)
+                                            {
+                                                @:<div class="badge badge-danger">On Loan</div>
+            }
+                                            else
+                                            {
+                                                @loan.date_returned
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
 
 	    @Html.ActionLink("Edit", "Edit", new { id = Model.memberID }, new { @class = "btn btn-primary"})
     @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-white"})

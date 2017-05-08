@@ -33,7 +33,7 @@
 
 				    <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Publisher.name)
+            Publisher Name
         </dt>
 
         <dd>
@@ -73,7 +73,7 @@
         </dd>
 
     </dl>
-                    @if (Model.Authors != null)
+                    @if (Model.Authors.Count() > 0)
                     {
                         <hr />
                         <h4>Authors</h4>
@@ -97,7 +97,8 @@
                                 }
                             </tbody>
                         </table>
-                    } @if (Model.BookCategories != null)
+                    }
+                    @if (Model.BookCategories.Count() > 0)
                     {
                         <hr />
                         <h4>Book Categories</h4>
@@ -117,7 +118,48 @@
                                         <td>@bookCategory.category_name</td>
                                         <td>
                                             @Html.ActionLink("View", "Details", "BookCategory", new { id = bookCategory.bookCategoryID }, new { @class = "btn btn-primary active btn-xs" })
-                                    </td>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    } @if (Model.BookCopies.Count() > 0)
+                    {
+                        <hr />
+                        <h4>Book Copies</h4>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Book Copy Number</th>
+                                    <th>Book Copy Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var bookCopy in Model.BookCopies)
+                                {
+                                    <tr>
+                                        <td>@bookCopy.bookCopyNo</td>
+                                         <td>
+                                            @if (bookCopy.loan_status == true)
+                                            {
+                                                  @:<div class="badge badge-danger">On Loan</div>
+                                            }else
+                                            {
+                                                @:<div class="badge badge-primary">In Library</div>
+                                            }
+                                        </td>
+                                        <td>
+                                              @Html.ActionLink("View", "Details", "BookCopy", new { id = bookCopy.bookCopyID }, new { @class = "btn btn-primary active btn-xs" })
+@if (bookCopy.loan_status == true)
+{
+                                              @Html.ActionLink("Return", "Return", "BookCopy", new { id = bookCopy.bookCopyID }, new { @class = "btn btn-danger active btn-xs" })
+}
+else
+{
+                                              @Html.ActionLink("Loan", "Loan", "BookCopy", new { id = bookCopy.bookCopyID }, new { @class = "btn btn-danger active btn-xs" })
+}
+                                        </td>
                                     </tr>
                                 }
                             </tbody>

@@ -175,6 +175,7 @@
     <Compile Include="Controllers\BookCategoryController.cs" />
     <Compile Include="Controllers\BookController.cs" />
     <Compile Include="Controllers\BookCopyController.cs" />
+    <Compile Include="Controllers\BookSearchController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoanController.cs" />
     <Compile Include="Controllers\LoanTypeController.cs" />
@@ -208,6 +209,7 @@
     <Compile Include="Models\Publisher.cs" />
     <Compile Include="Models\Rack.cs" />
     <Compile Include="Models\Shelf.cs" />
+    <Compile Include="Models\ViewModels\BookSearchModel.cs" />
     <Compile Include="Models\ViewModels\BookViewModel.cs" />
     <Compile Include="Models\ViewModels\GroupedUserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -286,6 +288,7 @@
     <Content Include="CodeTemplates\MvcView\Imports.include.t4" />
     <Content Include="CodeTemplates\MvcView\List.cs.t4" />
     <Content Include="CodeTemplates\MvcView\ModelMetadataFunctions.cs.include.t4" />
+    <Content Include="Views\BookCopy\Loan.cshtml" />
     <None Include="Properties\PublishProfiles\HostDemo.pubxml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
@@ -368,11 +371,6 @@
     <Content Include="Views\LoanType\Details.cshtml" />
     <Content Include="Views\LoanType\Edit.cshtml" />
     <Content Include="Views\LoanType\Index.cshtml" />
-    <Content Include="Views\BookCopy\Create.cshtml" />
-    <Content Include="Views\BookCopy\Delete.cshtml" />
-    <Content Include="Views\BookCopy\Details.cshtml" />
-    <Content Include="Views\BookCopy\Edit.cshtml" />
-    <Content Include="Views\BookCopy\Index.cshtml" />
     <Content Include="Views\Loan\Create.cshtml" />
     <Content Include="Views\Loan\Delete.cshtml" />
     <Content Include="Views\Loan\Details.cshtml" />
@@ -390,6 +388,19 @@
     <Content Include="Views\Staff\Details.cshtml" />
     <Content Include="Views\Staff\Edit.cshtml" />
     <Content Include="Views\Staff\Index.cshtml" />
+    <Content Include="Views\BookCopy\Create.cshtml" />
+    <Content Include="Views\BookCopy\Delete.cshtml" />
+    <Content Include="Views\BookCopy\Details.cshtml" />
+    <Content Include="Views\BookCopy\Edit.cshtml" />
+    <Content Include="Views\BookCopy\Index.cshtml" />
+    <Content Include="Views\Book\Search.cshtml" />
+    <Content Include="Views\Shared\_BookSearchLayout.cshtml" />
+    <Content Include="Views\BookSearch\Index.cshtml" />
+    <Content Include="Views\Book\Publication.cshtml" />
+    <Content Include="Views\BookCopy\Old.cshtml" />
+    <Content Include="Views\BookCopy\OnLoan.cshtml" />
+    <Content Include="Views\Member\Inactive.cshtml" />
+    <Content Include="Views\Book\Inactive.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -415,7 +426,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>59911</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

@@ -46,8 +46,8 @@ namespace LibraryManagement
                       "~/fonts/font-awesome/css/font-awesome.min.css", new CssRewriteUrlTransform()));
 
             // iCheck plugin
-            bundles.Add(new StyleBundle("~/plugins/iCheck").Include(
-                      "~/Content/iCheck/custom.min.css", new CssRewriteUrlTransform()));
+            bundles.Add(new StyleBundle("~/Content/plugins/iCheck").Include(
+                      "~/Content/plugins/iCheck/custom.min.css", new CssRewriteUrlTransform()));
             bundles.Add(new ScriptBundle("~/plugins/iCheck").Include(
                       "~/Scripts/plugins/iCheck/icheck.min.js"));
             

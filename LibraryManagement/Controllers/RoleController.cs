@@ -36,11 +36,12 @@ namespace LibraryManagement.Controllers
                     Name = collection["RoleName"]
                 });
                 context.SaveChanges();
-                ViewBag.ResultMessage = "Role created successfully !";
+                TempData["Success"] = "Role created successfully !";
                 return View("Index", context.Roles.ToList());
             }
             catch
             {
+                TempData["Error"] = "Sorry, Role could not be created.";
                 return View();
             }
         }
@@ -78,7 +79,7 @@ namespace LibraryManagement.Controllers
         {
             var thisRole = context.Roles.Where(r => r.Name.Equals(RoleName, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
             context.Roles.Remove(thisRole);
-            ViewBag.ResultMessage = "Role deleted successfully !";
+            TempData["Success"] = "Role deleted successfully !";
             return View("Index", context.Roles.ToList());
         }
 
@@ -107,15 +108,10 @@ namespace LibraryManagement.Controllers
             }
             catch
             {
+                TempData["Error"] = "Sorry, Role could not be updated.";
                 return View();
             }
         }
-
-
-
-
-
-
 
         //Controller code for above
         public ActionResult ManageUserRoles()
@@ -151,7 +147,7 @@ namespace LibraryManagement.Controllers
             // prepopulat roles for the view dropdown
             var list = context.Roles.OrderBy(r => r.Name).ToList().Select(rr => new SelectListItem { Value = rr.Name.ToString(), Text = rr.Name }).ToList();
             ViewBag.Roles = list;
-            ViewBag.ResultMessage = "Role "+ RoleName +" added to the user "+UserName;
+            TempData["Success"] = "Role "+ RoleName +" added to the user "+UserName;
 
             return View("ManageUsers");
         }
@@ -184,11 +180,11 @@ namespace LibraryManagement.Controllers
             if (manager.IsInRole(user.Id, RoleName))
             {
                 manager.RemoveFromRole(user.Id, RoleName);
-                ViewBag.ResultMessage = "Role " + RoleName + " removed from the user " + UserName;
+                TempData["Success"] = "Role " + RoleName + " removed from the user " + UserName;
             }
             else
             {
-                ViewBag.ResultMessage = "This user doesn't belong to selected role.";
+                TempData["Error"] = "This user doesn't belong to selected role.";
             }
             // prepopulat roles for the view dropdown
             var list = context.Roles.OrderBy(r => r.Name).ToList().Select(rr => new SelectListItem { Value = rr.Name.ToString(), Text = rr.Name }).ToList();

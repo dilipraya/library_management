@@ -53,9 +53,11 @@ namespace LibraryManagement.Controllers
             {
                 db.BookCategories.Add(bookCategory);
                 db.SaveChanges();
+                TempData["Success"] = "Success, Book Category has been added.";
                 return RedirectToAction("Index");
             }
 
+            TempData["Error"] = "Sorry, Book Category could not be added.";
             return View(bookCategory);
         }
 
@@ -85,8 +87,10 @@ namespace LibraryManagement.Controllers
             {
                 db.Entry(bookCategory).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["Success"] = "Success, Book Category has been updated.";
                 return RedirectToAction("Index");
             }
+            TempData["Error"] = "Sorry, Book Category could not be updated.";
             return View(bookCategory);
         }
 
@@ -113,6 +117,7 @@ namespace LibraryManagement.Controllers
             BookCategory bookCategory = db.BookCategories.Find(id);
             db.BookCategories.Remove(bookCategory);
             db.SaveChanges();
+            TempData["Success"] = "Success, Book Category has been deleted.";
             return RedirectToAction("Index");
         }
 

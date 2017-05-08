@@ -53,9 +53,11 @@ namespace LibraryManagement.Controllers
             {
                 db.Authors.Add(author);
                 db.SaveChanges();
+                TempData["Success"] = "Success, Author has been added.";
                 return RedirectToAction("Index");
             }
 
+            TempData["Error"] = "Sorry, Author could not be added.";
             return View(author);
         }
 
@@ -85,8 +87,11 @@ namespace LibraryManagement.Controllers
             {
                 db.Entry(author).State = EntityState.Modified;
                 db.SaveChanges();
+
+                TempData["Success"] = "Success, Author has been updated.";
                 return RedirectToAction("Index");
             }
+            TempData["Error"] = "Sorry, Author could not be updated.";
             return View(author);
         }
 
@@ -112,6 +117,7 @@ namespace LibraryManagement.Controllers
         {
             Author author = db.Authors.Find(id);
             db.Authors.Remove(author);
+            TempData["Success"] = "Success, Author has been deleted.";
             db.SaveChanges();
             return RedirectToAction("Index");
         }

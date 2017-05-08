@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -28,6 +29,24 @@ namespace LibraryManagement.Models
         [DisplayName("Return Date"), DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? date_returned { get; set; }
+
+        [NotMapped]
+        public decimal standard_charge
+        {
+            get; set;
+        }
+
+        [NotMapped]
+        public decimal penalty_charge
+        {
+            get; set;
+        }
+
+        [NotMapped]
+        public decimal total_charge
+        {
+            get; set;
+        }
 
         [DisplayName("Book Copy ID"), Required]
         public int bookCopyID { get; set; }

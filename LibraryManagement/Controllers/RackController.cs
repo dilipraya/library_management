@@ -55,10 +55,11 @@ namespace LibraryManagement.Controllers
             {
                 db.Racks.Add(rack);
                 db.SaveChanges();
-                ViewBag.ResultMessage = "Rack added successfully !";
+                TempData["Success"] = "Success, Rack has been added.";
                 return RedirectToAction("Index");
             }
 
+            TempData["Error"] = "Sorry, Rack could not be added.";
             ViewBag.shelfID = new SelectList(db.Shelves, "shelfID", "shelf_name", rack.shelfID);
             return View(rack);
         }
@@ -90,8 +91,10 @@ namespace LibraryManagement.Controllers
             {
                 db.Entry(rack).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["Success"] = "Success, Rack has been updated.";
                 return RedirectToAction("Index");
             }
+            TempData["Error"] = "Sorry, Rack could not be updated.";
             ViewBag.shelfID = new SelectList(db.Shelves, "shelfID", "shelf_name", rack.shelfID);
             return View(rack);
         }
@@ -119,6 +122,7 @@ namespace LibraryManagement.Controllers
             Rack rack = db.Racks.Find(id);
             db.Racks.Remove(rack);
             db.SaveChanges();
+            TempData["Success"] = "Success, Rack has been deleted.";
             return RedirectToAction("Index");
         }
 

@@ -20,6 +20,10 @@ namespace LibraryManagement.Models
         [DisplayName("Copy Number")]
         public int bookCopyNo { get; set; }
 
+        [DisplayName("Added Date"), DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime added_date { get; set; }
+
         [DisplayName("Book"), Required]
         public int bookID { get; set; }
 
@@ -28,6 +32,7 @@ namespace LibraryManagement.Models
 
         [DisplayName("Loan Status"), DefaultValue(false)]
         public bool loan_status { get; set; }
+
         public virtual Book Book { get; set; }
         public virtual Rack Rack { get; set; }
 

@@ -9,8 +9,203 @@
                 <h1>
                     @ViewData["SubTitle"]
                 </h1>
-                <small>@ViewData["Message"]</small>
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <a href="/BookCopy/OnLoan" class="label label-success pull-right">View</a>
+                    <h5>Copies On Loans</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">@ViewData["BookCopiesOnLoan"]</h1>
+                    <small>Total Book Copies on Loan</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <a href="/BookCopy" class="label label-info pull-right">View</a>
+                    <h5>Total Book Copies</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">@ViewData["BookCopies"]</h1>
+                    <small>Total Book Copies</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <a href="/Book/" class="label label-primary pull-right">View</a>
+                    <h5>Books</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">@ViewData["Books"]</h1>
+                   <small>Total Book Titles</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <a href="/Members" class="label label-danger pull-right">View</a>
+                    <h5>Members</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">@ViewData["Members"]</h1>
+                     <small>Total Library Members</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <a href="/BookCopy/OnLoan">
+            <div class="col-lg-3">
+                <div class="widget style1 navy-bg">
+                    <div class="row vertical-align">
+                        <div class="col-xs-3">
+                            <i class="fa fa-file-text-o fa-3x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <h5>Book Copies On Loan</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+        <a href="/BookCopy/Old">
+            <div class="col-lg-3">
+                <div class="widget style1 navy-bg">
+                    <div class="row vertical-align">
+                        <div class="col-xs-3">
+                            <i class="fa fa-file-text fa-3x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <h5>Old Book Copies</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+        <a href="/Book/Inactive">
+            <div class="col-lg-3">
+                <div class="widget style1 navy-bg">
+                    <div class="row vertical-align">
+                        <div class="col-xs-3">
+                            <i class="fa fa-book fa-3x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <h5>Inactive Books</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+        <a href="/Member/Inactive">
+            <div class="col-lg-3">
+                <div class="widget style1 navy-bg">
+                    <div class="row vertical-align">
+                        <div class="col-xs-3">
+                            <i class="fa fa-user fa-3x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <h5>Inactive Members</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="row">
+        <a href="/Book">
+            <div class="col-lg-4">
+                <div class="widget red-bg p-lg text-center">
+                    <div class="m-b-md">
+                        <i class="fa fa-book fa-5x"></i>
+                        <h1 class="m-xs">@ViewData["Books"]</h1>
+                        <h3 class="font-bold no-margins">
+                            Books
+                        </h3>
+                        <small>Manage Books</small>
+                    </div>
+                </div>
+            </div>
+        </a>
+        <a href="/BookCopy/">
+            <div class="col-lg-4">
+                <div class="widget navy-bg p-lg text-center">
+                    <div class="m-b-md">
+                        <i class="fa fa-file-text fa-5x"></i>
+                        <h1 class="m-xs">@ViewData["BookCopies"]</h1>
+                        <h3 class="font-bold no-margins">
+                            Book Copies
+                        </h3>
+                        <small>Manage Book Copies</small>
+                    </div>
+                </div>
+            </div>
+        </a>
+        <a href="/Member">
+            <div class="col-lg-4">
+                <div class="widget lazur-bg p-lg text-center">
+                    <div class="m-b-md">
+                        <i class="fa fa-user fa-5x"></i>
+                        <h1 class="m-xs">@ViewData["Members"]</h1>
+                        <h3 class="font-bold no-margins">
+                            Members
+                        </h3>
+                        <small>Manage Members</small>
+                    </div>
+                </div>
+            </div>
+        </a>
+        <a href="/Author">
+            <div class="col-lg-4">
+                <div class="widget yellow-bg p-lg text-center">
+                    <div class="m-b-md">
+                        <i class="fa fa-male fa-5x"></i>
+                        <h1 class="m-xs">@ViewData["Authors"]</h1>
+                        <h3 class="font-bold no-margins">
+                            Authors
+                        </h3>
+                        <small>Manage Authors</small>
+                    </div>
+                </div>
+            </div>
+        </a>
+        <a href="/Publisher">
+            <div class="col-lg-4">
+                <div class="widget blue-bg p-lg text-center">
+                    <div class="m-b-md">
+                        <i class="fa fa-paper-plane fa-5x"></i>
+                        <h1 class="m-xs">@ViewData["Publishers"]</h1>
+                        <h3 class="font-bold no-margins">
+                            Publishers
+                        </h3>
+                        <small>Manage Publisher</small>
+                    </div>
+                </div>
+            </div>
+        </a>
+        <a href="/Rack">
+            <div class="col-lg-4">
+                <div class="widget black-bg p-lg text-center">
+                    <div class="m-b-md">
+                        <i class="fa fa-archive fa-5x"></i>
+                        <h1 class="m-xs">@ViewData["Racks"]</h1>
+                        <h3 class="font-bold no-margins">
+                            Racks
+                        </h3>
+                        <small>Manage Racks</small>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
 </div>
+
+

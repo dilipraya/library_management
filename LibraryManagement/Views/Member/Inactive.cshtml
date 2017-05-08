@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<LibraryManagement.Models.Member>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Inactive Members";
 }
 
 <div class="row wrapper border-bottom white-bg page-heading">
@@ -14,20 +14,8 @@
         </ol>
     </div>
 </div>
-@if (TempData["Success"] != null)
-{
-    <div class="alert alert-success alert-dismissable">
-        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-        <strong>@TempData["Success"]</strong>
-    </div>
-}
-@if (TempData["Error"] != null)
-{
-    <div class="alert alert-danger alert-dismissable">
-        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-        <strong>@TempData["Error"]</strong>
-    </div>
-}
+
+
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
         <div class="col-lg-12">
@@ -42,8 +30,7 @@
                     <table class="table table-striped table-bordered table-hover dataTables-example">
                         <thead>
                             <tr>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.memberID)
+                                <th>ID
                                 </th>
                                 <th>
                                     @Html.DisplayNameFor(model => model.first_name)
@@ -52,19 +39,13 @@
                                     @Html.DisplayNameFor(model => model.last_name)
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.gender)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.email)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.contact_number)
-                                </th>
-                                <th>
-                                    Membership Type
+                                    @Html.DisplayNameFor(model => model.address)
                                 </th>
                                 <th>
                                     Book on Loans
+                                </th>
+                                <th>
+                                    Last Loan Duration
                                 </th>
                                 <th>Actions</th>
                             </tr>
@@ -83,28 +64,37 @@
                                         @Html.DisplayFor(modelItem => item.last_name)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.gender)
+                                        @Html.DisplayFor(modelItem => item.address)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.email)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.contact_number)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.MembershipType.membership_type_name)
-                                    </td>
-                                    <td>
-                                        @{
-                                            int no_of_books_loaned = item.Loans.Count();
-                                            if (no_of_books_loaned > item.MembershipType.books_allowed)
-                                            {
 
-                                                @:<div class="badge badge-danger">To Many Books</div>
-                                            }
+                                        @if (item.Loans.Count() > 0)
+                                        {
+                                            <h4>Loans</h4>
+                                            <table class="table table-bordered table-condensed">
+                                                <thead>
+                                                    <tr class="active">
+                                                        <th>Loan Id</th>
+                                                        <th>Book Title</th>
+                                                        <th>Book Copy No</th>
+                                                        <th>Loaned date</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var loan in item.Loans.OrderByDescending(lo => lo.date_out))
+                                                    {
+                                                        <tr>
+                                                            <td>@loan.loanID</td>
+                                                            <td>@loan.BookCopy.Book.title</td>
+                                                            <td>@loan.BookCopy.bookCopyNo</td>
+                                                            <td>@loan.date_out.ToString("MM/dd/yyyy")</td>
+                                                    </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
                                         }
-                                        <div class="badge badge-primary">Books: @(no_of_books_loaned)</div>
                                     </td>
+                                    <td>4</td>
                                     <td>
                                         @Html.ActionLink("Details", "Details", new { id = item.memberID }, new { @class = "btn btn-primary btn-sm" })
                                         @Html.ActionLink("Edit", "Edit", new { id = item.memberID }, new { @class = "btn btn-white btn-sm" })
@@ -115,8 +105,7 @@
                         </tbody>
                         <tfoot>
                             <tr>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.memberID)
+                                <th>ID
                                 </th>
                                 <th>
                                     @Html.DisplayNameFor(model => model.first_name)
@@ -125,19 +114,13 @@
                                     @Html.DisplayNameFor(model => model.last_name)
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.gender)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.email)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.contact_number)
-                                </th>
-                                <th>
-                                    Membership Type
+                                    @Html.DisplayNameFor(model => model.address)
                                 </th>
                                 <th>
                                     Book on Loans
+                                </th>
+                                <th>
+                                    Last Loan Duration
                                 </th>
                                 <th>Actions</th>
                             </tr>
@@ -163,8 +146,6 @@
 
             $('.dataTables-example').DataTable({
 
-                /* Sort Table by name*/
-                "order": [1, 'asc'],
                 dom: '<"html5buttons"B>lTfgitp',
                 buttons: [
                     { extend: 'copy' },

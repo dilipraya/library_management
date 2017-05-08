@@ -53,9 +53,11 @@ namespace LibraryManagement.Controllers
             {
                 db.Shelves.Add(shelf);
                 db.SaveChanges();
+                TempData["Success"] = "Success, Shelf has been added.";
                 return RedirectToAction("Index");
             }
 
+            TempData["Error"] = "Sorry, Shelf could not be added.";
             return View(shelf);
         }
 
@@ -85,8 +87,10 @@ namespace LibraryManagement.Controllers
             {
                 db.Entry(shelf).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["Success"] = "Success, Shelf has been updated.";
                 return RedirectToAction("Index");
             }
+            TempData["Error"] = "Sorry, Shelf could not be updated.";
             return View(shelf);
         }
 
@@ -113,6 +117,7 @@ namespace LibraryManagement.Controllers
             Shelf shelf = db.Shelves.Find(id);
             db.Shelves.Remove(shelf);
             db.SaveChanges();
+            TempData["Success"] = "Success, Shelf has been deleted.";
             return RedirectToAction("Index");
         }
 

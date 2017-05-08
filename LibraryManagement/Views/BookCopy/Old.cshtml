@@ -14,18 +14,20 @@
         </ol>
     </div>
 </div>
+
 @if (TempData["Success"] != null)
 {
     <div class="alert alert-success alert-dismissable">
         <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-        <strong>@TempData["Success"]</strong>
+        @TempData["Success"]
     </div>
 }
+
 @if (TempData["Error"] != null)
 {
     <div class="alert alert-danger alert-dismissable">
         <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-        <strong>@TempData["Error"]</strong>
+        @TempData["Error"]
     </div>
 }
 <div class="wrapper wrapper-content animated fadeInRight">
@@ -35,11 +37,12 @@
                 <div class="ibox-title">
                     <h5>List of BookCopy</h5>
 					<div class="ibox-tools">
-                        @Html.ActionLink("Old Book Copies", "Old", null, new { @class = "btn btn-danger btn-xs" })
+                         @Html.ActionLink("Delete All Old Copies", "DeleteOld", null, new { @class = "btn btn-danger btn-xs" })						
 						@Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary btn-xs"})
 					</div>
                 </div>
                 <div class="ibox-content">
+
 <table class="table table-striped">
     <tr>
         <th>
@@ -52,10 +55,10 @@
             @Html.DisplayNameFor(model => model.bookCopyNo)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.loan_status)
+            @Html.DisplayNameFor(model => model.added_date)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.added_date)
+            @Html.DisplayNameFor(model => model.loan_status)
         </th>
         <th>Actions</th>
     </tr>
@@ -72,6 +75,9 @@
             @Html.DisplayFor(modelItem => item.bookCopyNo)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.added_date)
+        </td>
+        <td>
             @if (item.loan_status == true)
             {
                 @:<div class="badge badge-danger">On Loan</div>
@@ -79,9 +85,6 @@
             {
                 @:<div class="badge badge-primary">In Library</div>
             }
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.added_date)
         </td>
         <td>
             @if (item.loan_status == true)

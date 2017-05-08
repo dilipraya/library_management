@@ -51,13 +51,19 @@ namespace LibraryManagement.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="loanID,date_out,date_due,date_returned,bookCopyID,memberID,loanTypeID")] Loan loan)
+        public ActionResult Create([Bind(Include="loanID,date_out,bookCopyID,memberID,loanTypeID")] Loan loan)
         {
             if (ModelState.IsValid)
             {
+                BookCopy bookCopy = db.BookCopies.Find(loan.bookCopyID);
+                LoanType loanType = db.LoanTypes.Find(loan.loanTypeID);
+
+                loan.date_due = loan.date_out.AddDays(loanType.duration);
                 db.Loans.Add(loan);
+
+                bookCopy.loan_status = true;
+ 
                 db.SaveChanges();
-                
                 return RedirectToAction("Index");
             }
 
@@ -90,7 +96,7 @@ namespace LibraryManagement.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="loanID,date_out,date_due,date_returned,bookCopyID,memberID,loanTypeID")] Loan loan)
+        public ActionResult Edit([Bind(Include="loanID,date_out,date_due,bookCopyID,memberID,loanTypeID")] Loan loan)
         {
             if (ModelState.IsValid)
             {

@@ -45,8 +45,8 @@ namespace LibraryManagement.Models
         [StringLength(100, MinimumLength = 5, ErrorMessage = "Please enter the address using 5-100 characters.")]
         public string address { get; set; }
 
-        [DisplayName("Membership ID")]
-        public int MembershipTypeID { get; set; }
+        [DisplayName("Membership Type ID")]
+        public int membershipTypeID { get; set; }
 
         public MembershipType MembershipType { get; set; }
 

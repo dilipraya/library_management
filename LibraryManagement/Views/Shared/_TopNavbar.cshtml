@@ -2,11 +2,13 @@
     <nav class="navbar navbar-static-top white-bg" role="navigation" style="margin-bottom: 0">
         <div class="navbar-header">
             <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
-            <form role="search" class="navbar-form-custom" method="post" action="">
+            @using (Html.BeginForm("Search", "Book", FormMethod.Get, new { @class = "navbar-form-custom" }))
+            {
+                @Html.ValidationSummary(false)
                 <div class="form-group">
-                    <input type="text" placeholder="Search for something..." class="form-control" name="top-search" id="top-search">
+                    <input type="text" placeholder="Search Book ..." class="form-control" name="search_name" id="top-search">
                 </div>
-            </form>
+            }
         </div>
         @Html.Partial("_LoginPartial")
     </nav>
